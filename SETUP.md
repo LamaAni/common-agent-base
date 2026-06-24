@@ -1,5 +1,5 @@
 # SETUP.md — Workspace Setup Instructions
-_Read by a Claude, not by the user. Execute each step in order._
+_Read by an LLM agent, not by the user. Execute each step in order._
 
 ---
 
