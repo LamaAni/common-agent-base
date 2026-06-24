@@ -30,7 +30,9 @@ Use this context to calibrate every response — match the user's working style,
 
 ## Work organisation
 
-All output goes in `Work/`. Organised by project, never by document type.
+**Before creating any output, follow the rules in `.agent/commands/order.md`.** That file is the single source of truth for how Work/ is structured.
+
+Summary of the rules (full detail in order.md):
 
 ### Project folders
 - One folder per topic or project: `Work/[topic-slug]/`
@@ -84,6 +86,17 @@ Before writing any Python tool, read `.agent/docs/tool_index.md`.
 - Exists → use it
 - Close → extend it
 - Nothing matches → write new, register in `cli.py`, update `tool_index.md`
+
+---
+
+## Available commands
+
+Slash commands are in `.agent/commands/`. See `index.md` there for the full list.
+
+| Command | What it does |
+|---------|-------------|
+| `/order` | Show Work/ summary; also the always-active organisation rules |
+| `/summarize` | Summarise a document, URL, or pasted text |
 
 ---
 
