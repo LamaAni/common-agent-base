@@ -1,3 +1,9 @@
+<!--
+  TEMPLATE FILE — do not edit directly after setup.
+  SETUP.md copies this to CLAUDE.md and fills in all [PLACEHOLDER] values.
+  Edit AGENT.md only to change the template for future forks.
+-->
+
 # [AGENT_NAME] — Agent Constitution
 
 ## Identity
