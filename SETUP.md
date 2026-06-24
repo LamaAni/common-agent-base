@@ -13,15 +13,97 @@ Work through the steps below. Explain what you're doing in plain English as you 
 
 ---
 
-## Step 1 — Prerequisites check
+## Step 1 — Prerequisites
 
-Check that the following are installed. For each one missing, give the user a plain-English install instruction with a link, and wait for their confirmation before continuing.
+First, detect the user's operating system by running `uname -s` (Linux/macOS) or checking `%OS%` (Windows). Use this throughout to give OS-appropriate instructions.
 
-| Requirement | How to check | Install link |
-|-------------|-------------|-------------|
-| Python 3.10+ | `python3 --version` or `python --version` | [python.org/downloads](https://python.org/downloads) |
-| git | `git --version` | [git-scm.com](https://git-scm.com) |
-| Node.js 18+ | `node --version` | [nodejs.org](https://nodejs.org) |
+Handle each prerequisite below in order. For each one: check silently, then either confirm it's ready or walk the user through installing it. **Do not move to the next prerequisite until the current one is confirmed working.**
+
+---
+
+### 1a — Python
+
+Check: `python3 --version` (or `python --version` on Windows).
+
+**If Python 3.10 or higher is found:** Tell the user "Python is ready." Move on.
+
+**If Python is missing or older than 3.10:** Tell the user:
+
+> "I need to install Python — it's the engine that runs your assistant's tools. Here's how:
+>
+> **Windows:**
+> 1. Go to [python.org/downloads](https://python.org/downloads) — click the big yellow "Download Python" button
+> 2. Run the file you downloaded
+> 3. On the first screen, tick the box that says **"Add Python to PATH"** — this is important, don't skip it
+> 4. Click "Install Now" and wait for it to finish
+> 5. Come back here and tell me when it's done
+>
+> **Mac:**
+> 1. Go to [python.org/downloads](https://python.org/downloads) — click the big yellow "Download Python" button
+> 2. Open the downloaded file and follow the installer steps
+> 3. Come back here and tell me when it's done
+>
+> **Linux:**
+> 1. Open a terminal and run: `sudo apt install python3` (Ubuntu/Debian) or `sudo dnf install python3` (Fedora)
+> 2. Come back here and tell me when it's done"
+
+Wait for the user to confirm. Then re-check `python3 --version`. If it still fails, help the user troubleshoot — common issues: forgot to tick "Add to PATH" on Windows (fix: re-run installer and tick it), or needs to restart the terminal. Do not proceed until Python works.
+
+---
+
+### 1b — git
+
+Check: `git --version`.
+
+**If git is found:** Tell the user "git is ready." Move on.
+
+**If git is missing:** Tell the user:
+
+> "I need to install git — it keeps backups of everything your assistant produces. Here's how:
+>
+> **Windows:**
+> 1. Go to [git-scm.com/download/win](https://git-scm.com/download/win) — the download will start automatically
+> 2. Run the installer and click Next on every screen — the defaults are all fine
+> 3. Come back here and tell me when it's done
+>
+> **Mac:**
+> 1. Open the Terminal app (search for "Terminal" in Spotlight)
+> 2. Type `xcode-select --install` and press Enter
+> 3. Click Install in the window that appears and wait for it to finish
+> 4. Come back here and tell me when it's done
+>
+> **Linux:**
+> 1. Run: `sudo apt install git` (Ubuntu/Debian) or `sudo dnf install git` (Fedora)
+> 2. Come back here and tell me when it's done"
+
+Wait for confirmation. Re-check `git --version`. Do not proceed until git works.
+
+---
+
+### 1c — Node.js
+
+Check: `node --version`.
+
+**If Node.js 18 or higher is found:** Tell the user "Node.js is ready." Move on.
+
+**If Node.js is missing or older than 18:** Tell the user:
+
+> "I need to install Node.js — it runs the connectors that let your assistant talk to tools like Slack and Google Drive. Here's how:
+>
+> **Windows and Mac:**
+> 1. Go to [nodejs.org](https://nodejs.org) — click the button that says **"LTS"** (that's the stable version)
+> 2. Run the downloaded installer and click Next on every screen — the defaults are all fine
+> 3. Come back here and tell me when it's done
+>
+> **Linux:**
+> 1. Run: `sudo apt install nodejs npm` (Ubuntu/Debian) or `sudo dnf install nodejs` (Fedora)
+> 2. Come back here and tell me when it's done"
+
+Wait for confirmation. Re-check `node --version`. Do not proceed until Node.js 18+ works.
+
+---
+
+Once all three are confirmed, tell the user: "Great — everything is installed. Let's set up your assistant now."
 
 ---
 
