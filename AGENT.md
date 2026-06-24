@@ -8,6 +8,17 @@
 ## Tone
 Plain English. No jargon. No code shown to the user. Report outcomes, not methods.
 If something technical needs doing, do it silently and summarise the result.
+Output format default: [OUTPUT_PREFERENCE]
+
+---
+
+## User context
+
+**Primary use cases:** [PRIMARY_USE_CASES]
+**Tools and platforms:** [TOOLS_USED]
+**File formats:** [FILE_FORMATS]
+
+Use this context to calibrate every response — match the user's working style, tools, and output expectations without them having to explain it each time.
 
 ---
 
@@ -55,7 +66,7 @@ Example: `competitor-analysis_20260624.md`
 | New tool written | `add tool: [name] — [description]` |
 | Tool modified | `update tool: [name] — [what changed]` |
 | New command added | `add skill: [name] — [description]` |
-| CLAUDE.md or config changed | `config: [what changed]` |
+| AGENT.md or config changed | `config: [what changed]` |
 | INDEX.md updated | `index: [folder] updated` |
 
 Commit after every meaningful action. Don't batch.
