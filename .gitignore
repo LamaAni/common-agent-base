@@ -218,3 +218,13 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Agent — runtime and secrets
+.env
+.agent/.venv/
+.agent/.logs/
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
