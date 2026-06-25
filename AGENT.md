@@ -1,7 +1,7 @@
 <!--
-  TEMPLATE FILE — do not edit directly after setup.
-  SETUP.md copies this to CLAUDE.md and fills in all [PLACEHOLDER] values.
-  Edit AGENT.md only to change the template for future forks.
+  AGENT.md is the agent constitution for this workspace.
+  SETUP.md fills in all [PLACEHOLDER] values directly here.
+  CLAUDE.md is a runtime symlink to this file — created by install.sh, gitignored.
 -->
 
 # [AGENT_NAME] — Agent Constitution
@@ -94,6 +94,19 @@ Before writing any Python tool, read `.agent/docs/tool_index.md`.
 **Adding a symlink:** when you add an entry to `.agent/setup/shared_agent_config_symlinks.yaml`, immediately add the `from` path as a new line under the `# Runtime symlinks` section in `.gitignore`. Then run `cli.py install` (or `sync-links`) to create it. Commit both files together.
 
 **Adding a pip dependency:** add it to `.agent/setup/requirements.txt`, then re-run `install.sh` / `install.bat` to apply.
+
+---
+
+## MCP servers
+
+Config lives at `.agent/mcp/config.json` (gitignored, created by install). Claude Code reads it via the `.mcp.json` symlink.
+
+Full format, common servers, and custom server rules: **`.agent/mcp/servers.md`** — read it before adding or modifying any MCP server.
+
+Rules:
+- All custom server scripts go under `.agent/mcp/servers/[name]/`
+- Secrets go in `.env`, referenced as `${KEY}` in config — never hardcoded
+- After editing `config.json`, re-run `install.sh` to refresh the link
 
 ---
 

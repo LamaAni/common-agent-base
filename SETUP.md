@@ -80,30 +80,7 @@ Wait for confirmation. Re-check `git --version`. Do not proceed until git works.
 
 ---
 
-### 1c — Node.js
-
-Check: `node --version`.
-
-**If Node.js 18 or higher is found:** Tell the user "Node.js is ready." Move on.
-
-**If Node.js is missing or older than 18:** Tell the user:
-
-> "I need to install Node.js — it runs the connectors that let your assistant talk to tools like Slack and Google Drive. Here's how:
->
-> **Windows and Mac:**
-> 1. Go to [nodejs.org](https://nodejs.org) — click the button that says **"LTS"** (that's the stable version)
-> 2. Run the downloaded installer and click Next on every screen — the defaults are all fine
-> 3. Come back here and tell me when it's done
->
-> **Linux:**
-> 1. Run: `sudo apt install nodejs npm` (Ubuntu/Debian) or `sudo dnf install nodejs` (Fedora)
-> 2. Come back here and tell me when it's done"
-
-Wait for confirmation. Re-check `node --version`. Do not proceed until Node.js 18+ works.
-
----
-
-Once all three are confirmed, tell the user: "Great — everything is installed. Let's set up your assistant now."
+Once both are confirmed, tell the user: "Great — everything is installed. Let's set up your assistant now."
 
 ---
 
@@ -157,16 +134,9 @@ If the user is not sure, skip and note: "MCP integrations can be added anytime l
 
 ---
 
-## Step 3 — Create CLAUDE.md from AGENT.md
+## Step 3 — Personalise AGENT.md
 
-`AGENT.md` is the canonical template committed to the repo. `CLAUDE.md` is the personalised working copy that Claude Code loads automatically — it does not exist until setup runs.
-
-Run from the repo root:
-```
-cp AGENT.md CLAUDE.md
-```
-
-Then replace every `[PLACEHOLDER]` in `CLAUDE.md` using the interview answers:
+`AGENT.md` is the agent constitution. `CLAUDE.md` is a symlink to it, created by the install step. Fill the placeholders directly in `AGENT.md` using the interview answers:
 
 | Placeholder | Value |
 |-------------|-------|
@@ -218,57 +188,14 @@ Commit: `install: environment ready`
 
 ## Step 6 — MCP configuration
 
-Create `.agent/mcp/config.json` with the servers the user selected in Step 2D.
+Read `.agent/mcp/servers.md` — it has the full config format, blocks for common servers, and rules for custom scripts.
 
-Base template:
-```json
-{
-  "mcpServers": {}
-}
-```
+Based on the user's answers in Step 2D, edit `.agent/mcp/config.json` (created by the install step as an empty stub):
+- Add a block for each integration the user selected
+- Leave `mcpServers: {}` if they selected none
+- Put any required API keys in `.env` and reference them as `${KEY}` in the config — never hardcode secrets
 
-Add blocks for each selected integration:
-
-**Browser (research/web):**
-```json
-"browser": {
-  "command": "npx",
-  "args": ["@playwright/mcp@latest"],
-  "_note": "Browser automation — navigate, extract, screenshot any website"
-}
-```
-
-**Slack:**
-```json
-"slack": {
-  "command": "npx",
-  "args": ["-y", "@modelcontextprotocol/server-slack"],
-  "env": { "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}" },
-  "_note": "Read channels, send messages"
-}
-```
-
-**Google Drive:**
-```json
-"gdrive": {
-  "command": "npx",
-  "args": ["-y", "@modelcontextprotocol/server-gdrive"],
-  "_note": "Read and write Google Drive files"
-}
-```
-
-If no servers selected: leave `config.json` as-is (the install step already created an empty stub).
-
-For any MCP server added, trigger first-time install:
-```
-npx [package]@latest --help
-```
-If `npx` is unavailable, give the Node.js install link and wait.
-
-Then re-run install to wire the updated config:
-
-**macOS/Linux:** `.agent/.venv/bin/python .agent/tools/cli.py install`
-**Windows:** `.agent\.venv\Scripts\python.exe .agent\tools\cli.py install`
+If none selected: skip editing and note it as pending.
 
 Commit: `config: MCP configured — [list servers, or "none selected"]`
 

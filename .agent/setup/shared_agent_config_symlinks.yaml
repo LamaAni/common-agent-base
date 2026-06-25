@@ -3,6 +3,9 @@
 # On Windows without Developer Mode, directory links fall back to a copy.
 
 links:
+  - from: CLAUDE.md
+    to: AGENT.md
+
   - from: .claude/commands
     to: .agent/commands
 
