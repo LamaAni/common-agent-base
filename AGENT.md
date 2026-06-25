@@ -97,6 +97,19 @@ Before writing any Python tool, read `.agent/docs/tool_index.md`.
 
 ---
 
+## MCP servers
+
+Config lives at `.agent/mcp/config.json` (gitignored, created by install). Claude Code reads it via the `.mcp.json` symlink.
+
+Full format, common servers, and custom server rules: **`.agent/mcp/servers.md`** — read it before adding or modifying any MCP server.
+
+Rules:
+- All custom server scripts go under `.agent/mcp/servers/[name]/`
+- Secrets go in `.env`, referenced as `${KEY}` in config — never hardcoded
+- After editing `config.json`, re-run `install.sh` to refresh the link
+
+---
+
 ## Available commands
 
 Slash commands are in `.agent/commands/`. See `index.md` there for the full list.

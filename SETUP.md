@@ -218,57 +218,14 @@ Commit: `install: environment ready`
 
 ## Step 6 — MCP configuration
 
-Create `.agent/mcp/config.json` with the servers the user selected in Step 2D.
+Read `.agent/mcp/servers.md` — it has the full config format, blocks for common servers, and rules for custom scripts.
 
-Base template:
-```json
-{
-  "mcpServers": {}
-}
-```
+Based on the user's answers in Step 2D, edit `.agent/mcp/config.json` (created by the install step as an empty stub):
+- Add a block for each integration the user selected
+- Leave `mcpServers: {}` if they selected none
+- Put any required API keys in `.env` and reference them as `${KEY}` in the config — never hardcode secrets
 
-Add blocks for each selected integration:
-
-**Browser (research/web):**
-```json
-"browser": {
-  "command": "npx",
-  "args": ["@playwright/mcp@latest"],
-  "_note": "Browser automation — navigate, extract, screenshot any website"
-}
-```
-
-**Slack:**
-```json
-"slack": {
-  "command": "npx",
-  "args": ["-y", "@modelcontextprotocol/server-slack"],
-  "env": { "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}" },
-  "_note": "Read channels, send messages"
-}
-```
-
-**Google Drive:**
-```json
-"gdrive": {
-  "command": "npx",
-  "args": ["-y", "@modelcontextprotocol/server-gdrive"],
-  "_note": "Read and write Google Drive files"
-}
-```
-
-If no servers selected: leave `config.json` as-is (the install step already created an empty stub).
-
-For any MCP server added, trigger first-time install:
-```
-npx [package]@latest --help
-```
-If `npx` is unavailable, give the Node.js install link and wait.
-
-Then re-run install to wire the updated config:
-
-**macOS/Linux:** `.agent/.venv/bin/python .agent/tools/cli.py install`
-**Windows:** `.agent\.venv\Scripts\python.exe .agent\tools\cli.py install`
+If none selected: skip editing and note it as pending.
 
 Commit: `config: MCP configured — [list servers, or "none selected"]`
 
