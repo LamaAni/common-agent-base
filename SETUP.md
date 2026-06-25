@@ -6,6 +6,16 @@ _Non-interactive mode: if running without a user present, use dummy values where
 
 ## Before you start
 
+**Directory check:** Confirm that `AGENT.md` and `SETUP.md` exist in the current working directory. If they don't, VS Code is opened in the wrong folder. Tell the user:
+
+> "It looks like VS Code is opened in the wrong folder. Here's how to fix it:
+> 1. In VS Code go to **File → Open Folder**
+> 2. Navigate to the folder where you downloaded or unzipped this repo
+> 3. Click **Open**
+> 4. Then ask me to follow SETUP.md again."
+
+Do not proceed until the directory check passes.
+
 Tell the user:
 > "I'm going to set up your workspace. I'll ask you some questions — just answer in plain English. This takes about 10 minutes."
 
