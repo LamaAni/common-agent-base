@@ -197,26 +197,22 @@ Tell the user: "You can add more keys to `.env` any time as you connect new serv
 
 ---
 
-## Step 5 — Python environment
-
-**Sub-step 5a — Create venv (always run this, regardless of what comes next):**
+## Step 5 — Install
 
 Run from the repo root:
-```
-python3 -m venv .agent/.venv
-```
-On Windows: `python -m venv .agent\.venv`
 
-**Sub-step 5b — Install packages (only if requirements.txt has content):**
-
-Check whether `.agent/setup/requirements.txt` exists and has content (not just a `.gitkeep`).
-If yes:
+**macOS/Linux:**
 ```
-.agent/.venv/bin/python -m pip install -r .agent/setup/requirements.txt
+bash .agent/tools/install.sh
 ```
-On Windows: `.agent\.venv\Scripts\python.exe -m pip install -r .agent\setup\requirements.txt`
+**Windows:**
+```
+.agent\tools\install.bat
+```
 
-If no: skip 5b and note it as pending.
+This creates the Python venv, installs dependencies, then runs the CLI to wire all links and create the MCP config stub. Safe to re-run at any time.
+
+Commit: `install: environment ready`
 
 ---
 
@@ -261,20 +257,7 @@ Add blocks for each selected integration:
 }
 ```
 
-If no servers selected: write `config.json` with empty `mcpServers: {}`.
-
-Then wire `.mcp.json`. Run from the repo root:
-
-**macOS/Linux:**
-```
-ln -s .agent/mcp/config.json .mcp.json
-```
-
-**If symlink fails (Windows default):**
-```
-cp .agent/mcp/config.json .mcp.json
-```
-Note for Windows users: re-run this copy whenever `.agent/mcp/config.json` changes.
+If no servers selected: leave `config.json` as-is (the install step already created an empty stub).
 
 For any MCP server added, trigger first-time install:
 ```
@@ -282,26 +265,12 @@ npx [package]@latest --help
 ```
 If `npx` is unavailable, give the Node.js install link and wait.
 
+Then re-run install to wire the updated config:
+
+**macOS/Linux:** `.agent/.venv/bin/python .agent/tools/cli.py install`
+**Windows:** `.agent\.venv\Scripts\python.exe .agent\tools\cli.py install`
+
 Commit: `config: MCP configured — [list servers, or "none selected"]`
-
----
-
-## Step 7 — Commands wiring
-
-Run from the repo root:
-
-**macOS/Linux:**
-```
-ln -s ../.agent/commands .claude/commands
-```
-
-**If symlink fails (Windows default):**
-Copy all `.md` files from `.agent/commands/` into `.claude/commands/`.
-Note: re-run this copy whenever commands are added or changed.
-
-If `.agent/commands/` has only a `.gitkeep`: create the symlink/directory anyway — commands will populate in a future update.
-
-Commit: `config: commands wired`
 
 ---
 
@@ -333,12 +302,21 @@ Prefers: plain English, outcomes not methods, no jargon
 ## Step 9 — Verification
 
 Run from the repo root:
+
+**macOS/Linux:**
 ```
-python .agent/tools/cli.py --help
+.agent/.venv/bin/python .agent/tools/cli.py --help
+```
+**Windows:**
+```
+.agent\.venv\Scripts\python.exe .agent\tools\cli.py --help
 ```
 
-If it prints a list of commands without errors: verification passed.
-If `.agent/tools/cli.py` does not exist yet: note as pending, do not fail setup.
+If it prints the command list without errors, the CLI is working. Then re-run install to confirm everything is wired:
+```
+.agent/.venv/bin/python .agent/tools/cli.py install
+```
+Every line should show `skip` or `ok`. Any `warn` means a target doesn't exist yet — note it as pending.
 
 ---
 
