@@ -2,6 +2,8 @@
 
 Claude Code reads `.mcp.json` at startup. That file is a symlink to `.agent/mcp/config.json`, created by `install.sh`.
 
+**Node.js requirement:** the common servers listed below use `npx` — install Node.js 18+ from [nodejs.org](https://nodejs.org) if you need them. Custom Python-based servers use the venv Python and need no Node.
+
 ## Config format
 
 `.agent/mcp/config.json`:

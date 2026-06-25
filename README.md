@@ -18,4 +18,4 @@ Setup takes about 10 minutes. Claude will ask your name, your team, and what to 
 ## After setup
 
 Drop a task in plain English. Your assistant puts results in **Work/**, organised by project.
-Use `/` to run saved skills (e.g. `/summarize`).
+Use `/` to run saved skills — see `.agent/commands/index.md` for the full list.

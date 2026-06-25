@@ -1,7 +1,7 @@
 <!--
-  TEMPLATE FILE — do not edit directly after setup.
-  SETUP.md copies this to CLAUDE.md and fills in all [PLACEHOLDER] values.
-  Edit AGENT.md only to change the template for future forks.
+  AGENT.md is the agent constitution for this workspace.
+  SETUP.md fills in all [PLACEHOLDER] values directly here.
+  CLAUDE.md is a runtime symlink to this file — created by install.sh, gitignored.
 -->
 
 # [AGENT_NAME] — Agent Constitution

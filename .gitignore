@@ -227,6 +227,7 @@ __marimo__/
 node_modules/
 
 # Runtime symlinks (created by install.sh / cli.py install — not committed)
+CLAUDE.md
 .claude/commands
 .mcp.json
 
