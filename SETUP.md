@@ -288,18 +288,33 @@ Commit: `config: MCP configured — [list servers, or "none selected"]`
 
 ## Step 7 — Commands wiring
 
-Run from the repo root:
+First, check the current state of `.claude/commands` in the repo root:
 
-**macOS/Linux:**
+**Case 1 — it's a valid symlink pointing to `../.agent/commands`:**
+Already correct (happens on Linux/Mac clones). Skip to the commit step.
+
+**Case 2 — it's a text file containing `../.agent/commands`:**
+This is a Windows clone artifact — git materialised the symlink as a text file because symlinks weren't supported.
+Delete the file: `del .claude\commands` (Windows) or `rm .claude/commands` (if somehow on Unix).
+Then follow Case 3 below.
+
+**Case 3 — it doesn't exist:**
+
+*macOS/Linux:* Run from the repo root:
 ```
 ln -s ../.agent/commands .claude/commands
 ```
 
-**If symlink fails (Windows default):**
-Copy all `.md` files from `.agent/commands/` into `.claude/commands/`.
-Note: re-run this copy whenever commands are added or changed.
+*Windows:* Symlinks for directories require Developer Mode (Settings → Developer Mode → on) or admin rights.
+- If Developer Mode is on: `mklink /D .claude\commands ..\.agent\commands`
+- If Developer Mode is off (most users): copy the files instead:
+  ```
+  mkdir .claude\commands
+  copy .agent\commands\*.md .claude\commands\
+  ```
+  **Important:** on Windows with the copy approach, you must re-copy whenever commands are added or changed. A proper sync tool (`sync-commands`) is coming in a future update that will automate this.
 
-If `.agent/commands/` has only a `.gitkeep`: create the symlink/directory anyway — commands will populate in a future update.
+If `.agent/commands/` has only a `.gitkeep` (no command files yet): still create the symlink or directory — commands will populate in a future update.
 
 Commit: `config: commands wired`
 
