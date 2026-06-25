@@ -1,5 +1,7 @@
 # [AGENT_NAME] — Your Personal AI Assistant
 
+## BETA - this project is being used but still under development
+
 This is your personal AI assistant. Give it tasks in plain English and it handles the rest.
 Your assistant organises all its outputs in the **Work/** folder.
 
