@@ -263,19 +263,6 @@ Add blocks for each selected integration:
 
 If no servers selected: write `config.json` with empty `mcpServers: {}`.
 
-Then wire `.mcp.json`. Run from the repo root:
-
-**macOS/Linux:**
-```
-ln -s .agent/mcp/config.json .mcp.json
-```
-
-**If symlink fails (Windows default):**
-```
-cp .agent/mcp/config.json .mcp.json
-```
-Note for Windows users: re-run this copy whenever `.agent/mcp/config.json` changes.
-
 For any MCP server added, trigger first-time install:
 ```
 npx [package]@latest --help
@@ -286,37 +273,27 @@ Commit: `config: MCP configured — [list servers, or "none selected"]`
 
 ---
 
-## Step 7 — Commands wiring
+## Step 7 — Wire all links
 
-First, check the current state of `.claude/commands` in the repo root:
+Run from the repo root (use the venv Python so dependencies are available):
 
-**Case 1 — it's a valid symlink pointing to `../.agent/commands`:**
-Already correct (happens on Linux/Mac clones). Skip to the commit step.
-
-**Case 2 — it's a text file containing `../.agent/commands`:**
-This is a Windows clone artifact — git materialised the symlink as a text file because symlinks weren't supported.
-Delete the file: `del .claude\commands` (Windows) or `rm .claude/commands` (if somehow on Unix).
-Then follow Case 3 below.
-
-**Case 3 — it doesn't exist:**
-
-*macOS/Linux:* Run from the repo root:
+**macOS/Linux:**
 ```
-ln -s ../.agent/commands .claude/commands
+.agent/.venv/bin/python .agent/tools/cli.py sync-links
 ```
 
-*Windows:* Symlinks for directories require Developer Mode (Settings → Developer Mode → on) or admin rights.
-- If Developer Mode is on: `mklink /D .claude\commands ..\.agent\commands`
-- If Developer Mode is off (most users): copy the files instead:
-  ```
-  mkdir .claude\commands
-  copy .agent\commands\*.md .claude\commands\
-  ```
-  **Important:** on Windows with the copy approach, you must re-copy whenever commands are added or changed. A proper sync tool (`sync-commands`) is coming in a future update that will automate this.
+**Windows:**
+```
+.agent\.venv\Scripts\python.exe .agent\tools\cli.py sync-links
+```
 
-If `.agent/commands/` has only a `.gitkeep` (no command files yet): still create the symlink or directory — commands will populate in a future update.
+This reads `.agent/config/shared_agent_config_symlinks.yaml` and creates:
+- `.claude/commands → .agent/commands` (slash commands)
+- `.mcp.json → .agent/mcp/config.json` (MCP server config)
 
-Commit: `config: commands wired`
+On Windows without Developer Mode the tool automatically falls back to copying instead of symlinking and will tell you. That is expected — it still works.
+
+Commit: `config: links wired`
 
 ---
 
@@ -348,12 +325,23 @@ Prefers: plain English, outcomes not methods, no jargon
 ## Step 9 — Verification
 
 Run from the repo root:
+
+**macOS/Linux:**
 ```
-python .agent/tools/cli.py --help
+.agent/.venv/bin/python .agent/tools/cli.py --help
+```
+**Windows:**
+```
+.agent\.venv\Scripts\python.exe .agent\tools\cli.py --help
 ```
 
-If it prints a list of commands without errors: verification passed.
-If `.agent/tools/cli.py` does not exist yet: note as pending, do not fail setup.
+If it prints the command list without errors, the CLI is working. Then run a dry-run to confirm all links are in place:
+```
+.agent/.venv/bin/python .agent/tools/cli.py sync-links --dry-run
+```
+Every entry should show `skip` (already linked) or `warn` (target doesn't exist yet — acceptable for optional integrations). Any `would` line means a link still needs to be created; re-run without `--dry-run` to fix it.
+
+List any incomplete items here as pending so the user is aware.
 
 ---
 

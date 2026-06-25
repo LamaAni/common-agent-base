@@ -228,3 +228,4 @@ node_modules/
 # OS
 .DS_Store
 Thumbs.db
+.claude/commands
