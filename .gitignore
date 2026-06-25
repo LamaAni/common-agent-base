@@ -224,10 +224,12 @@ __marimo__/
 .agent/.venv/
 .agent/.logs/
 .agent/mcp/config.json
-.mcp.json
 node_modules/
+
+# Runtime symlinks (created by install.sh / cli.py install — not committed)
+.claude/commands
+.mcp.json
 
 # OS
 .DS_Store
 Thumbs.db
-.claude/commands
