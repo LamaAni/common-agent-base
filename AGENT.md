@@ -89,6 +89,14 @@ Before writing any Python tool, read `.agent/docs/tool_index.md`.
 
 ---
 
+## Configuration discipline
+
+**Adding a symlink:** when you add an entry to `.agent/setup/shared_agent_config_symlinks.yaml`, immediately add the `from` path as a new line under the `# Runtime symlinks` section in `.gitignore`. Then run `cli.py install` (or `sync-links`) to create it. Commit both files together.
+
+**Adding a pip dependency:** add it to `.agent/setup/requirements.txt`, then re-run `install.sh` / `install.bat` to apply.
+
+---
+
 ## Available commands
 
 Slash commands are in `.agent/commands/`. See `index.md` there for the full list.
