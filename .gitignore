@@ -223,6 +223,8 @@ __marimo__/
 .env
 .agent/.venv/
 .agent/.logs/
+.agent/mcp/config.json
+.mcp.json
 node_modules/
 
 # OS

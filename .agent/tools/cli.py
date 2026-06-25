@@ -67,7 +67,7 @@ def cli() -> None:
     "--config",
     default=None,
     type=click.Path(exists=False),
-    help="Path to symlinks YAML (default: .agent/config/shared_agent_config_symlinks.yaml)",
+    help="Path to symlinks YAML (default: .agent/setup/shared_agent_config_symlinks.yaml)",
 )
 def sync_links(dry_run: bool, config: str | None) -> None:
     """Create or refresh symlinks defined in shared_agent_config_symlinks.yaml."""

@@ -68,7 +68,7 @@ def sync(config_path: Path | None = None, *, dry_run: bool = False) -> list[str]
     """
     root = _repo_root()
     if config_path is None:
-        config_path = root / ".agent" / "config" / "shared_agent_config_symlinks.yaml"
+        config_path = root / ".agent" / "setup" / "shared_agent_config_symlinks.yaml"
 
     if not config_path.exists():
         return [f"ERROR: config not found: {config_path}"]
