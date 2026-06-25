@@ -201,18 +201,16 @@ Commit: `config: MCP configured — [list servers, or "none selected"]`
 
 ---
 
-## Step 8 — Memory bootstrap
+## Step 7 — Memory bootstrap
 
-Use the platform's memory tools to create the following. Do not write to a hardcoded path — the platform manages the memory directory automatically.
+Use the platform's memory tools to write the following. Do not hardcode a path — the platform manages memory automatically. Use the values already filled in `AGENT.md`.
 
-**Memory index:**
+**Memory index entry:**
 ```
-# Memory Index
-
 - [User Profile](user_profile.md) — [USERNAME]'s role, context, and preferences
 ```
 
-**User profile (`user_profile.md`):**
+**`user_profile.md`:**
 ```
 Name: [USERNAME]
 Company: [COMPANY_NAME]
@@ -224,30 +222,26 @@ Tools used: [TOOLS_USED]
 Prefers: plain English, outcomes not methods, no jargon
 ```
 
+(Replace each `[...]` with the actual filled values from AGENT.md.)
+
 ---
 
-## Step 9 — Verification
-
-Run from the repo root:
+## Step 8 — Verification
 
 **macOS/Linux:**
 ```
-.agent/.venv/bin/python .agent/tools/cli.py --help
+.agent/.venv/bin/python .agent/tools/cli.py sync-links --dry-run
 ```
 **Windows:**
 ```
-.agent\.venv\Scripts\python.exe .agent\tools\cli.py --help
+.agent\.venv\Scripts\python.exe .agent\tools\cli.py sync-links --dry-run
 ```
 
-If it prints the command list without errors, the CLI is working. Then re-run install to confirm everything is wired:
-```
-.agent/.venv/bin/python .agent/tools/cli.py install
-```
-Every line should show `skip` or `ok`. Any `warn` means a target doesn't exist yet — note it as pending.
+Every entry should show `skip` (already linked) or `warn` (target missing — acceptable for optional integrations not yet configured). Any `would` means a link still needs creating; re-run `install.sh` to fix it.
 
 ---
 
-## Step 10 — Restart
+## Step 9 — Restart
 
 Build the summary dynamically from what actually happened in steps 1-9. Then tell the user:
 
