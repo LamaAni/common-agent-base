@@ -1,0 +1,13 @@
+# Symlink configuration — all paths are repo-root-relative.
+# The sync_links tool reads this and creates the links on the host OS.
+# On Windows without Developer Mode, directory links fall back to a copy.
+
+links:
+  - from: CLAUDE.md
+    to: AGENT.md
+
+  - from: .claude/commands
+    to: .agent/commands
+
+  - from: .mcp.json
+    to: .agent/mcp/config.json
