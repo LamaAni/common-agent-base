@@ -42,7 +42,7 @@ _Constitution = your assistant remembers your preferences across sessions. Comma
 Open your AI chat and paste this [message](SETUP.md):
 
 > Please follow the setup instructions at this URL and set up my workspace:
-> `https://raw.githubusercontent.com/LamaAni/common-agent-base/master/SETUP.md?nocache=1`
+> `https://raw.githubusercontent.com/LamaAni/common-agent-base/main/SETUP.md?nocache=1`
 
 > **Windows users:** if your AI fetches the URL but seems to be reading old instructions, add a random number to the end, e.g. `?nocache=42`. This forces a fresh fetch and bypasses any local cache.
 
